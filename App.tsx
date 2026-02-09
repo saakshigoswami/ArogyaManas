@@ -111,6 +111,7 @@ const App: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>(MOCK_PATIENTS);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dataSource, setDataSource] = useState<'supabase' | 'mock' | null>(null); // so you can see on Vercel if Supabase is used
   const [showDashboardScanner, setShowDashboardScanner] = useState(false);
   const [pendingScanForNewPatient, setPendingScanForNewPatient] = useState<ScannedPrescription | null>(null);
 
@@ -122,13 +123,20 @@ const App: React.FC = () => {
         if (cancelled) return;
         if (fromDb.length > 0) {
           setPatients(fromDb);
+          setDataSource('supabase');
         } else {
           const afterSeed = await seedDemoDataIfEmpty();
           if (cancelled) return;
-          if (afterSeed.length > 0) setPatients(afterSeed);
+          if (afterSeed.length > 0) {
+            setPatients(afterSeed);
+            setDataSource('supabase');
+          } else {
+            setDataSource('mock');
+          }
         }
       } catch (e) {
         console.warn('[App] Patient data load failed:', e);
+        if (!cancelled) setDataSource('mock');
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -179,6 +187,7 @@ const App: React.FC = () => {
             patients={patients}
             onSelectPatient={setSelectedPatient} 
             onAddNew={() => setActiveView('new-patient')}
+            dataSource={dataSource}
           />
         );
       case 'new-patient':

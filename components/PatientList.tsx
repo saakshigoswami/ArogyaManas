@@ -7,15 +7,21 @@ interface PatientListProps {
   patients: Patient[];
   onSelectPatient: (patient: Patient) => void;
   onAddNew: () => void;
+  dataSource?: 'supabase' | 'mock' | null;
 }
 
-const PatientList: React.FC<PatientListProps> = ({ patients, onSelectPatient, onAddNew }) => {
+const PatientList: React.FC<PatientListProps> = ({ patients, onSelectPatient, onAddNew, dataSource }) => {
   return (
     <div className="p-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-slate-800">Patient Directory</h1>
           <p className="text-slate-500 mt-1">Manage and track psychological history across sessions.</p>
+          {dataSource && (
+            <p className="text-slate-400 text-xs mt-1">
+              {dataSource === 'supabase' ? `Loaded from Supabase (${patients.length} patients)` : 'Using demo data — set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY on Vercel to connect.'}
+            </p>
+          )}
         </div>
       </div>
 
