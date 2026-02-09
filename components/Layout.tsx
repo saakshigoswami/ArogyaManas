@@ -3,12 +3,13 @@ import React from 'react';
 import { 
   LayoutDashboard, 
   Users, 
-  Activity, 
   Settings, 
   LogOut, 
   BrainCircuit,
   MessageSquare
 } from 'lucide-react';
+
+const arogyamanasLogo = new URL('../assets/ArogyaManas_logo.png', import.meta.url).href;
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -36,9 +37,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeView, onNavigate, onLog
             className="flex items-center space-x-3 mb-12 w-full text-left rounded-xl hover:bg-slate-800/50 transition py-1 -mx-1 px-1"
             aria-label="Back to home"
           >
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0">
-              <Activity className="w-6 h-6 text-white" />
-            </div>
+            <img src={arogyamanasLogo} alt="ArogyaManas" className="w-10 h-10 object-contain shrink-0 rounded-xl" />
             <span className="text-xl font-bold tracking-tight">ArogyaManas</span>
           </button>
 

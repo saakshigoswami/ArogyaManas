@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Activity, BrainCircuit, ShieldCheck, ArrowRight, Heart, Users, Fingerprint, ShieldEllipsis } from 'lucide-react';
+import { BrainCircuit, ShieldCheck, ArrowRight, Heart, Users, Fingerprint, ShieldEllipsis } from 'lucide-react';
 
 const abhaIcon = new URL('../assets/abha_icon.png', import.meta.url).href;
+const arogyamanasLogo = new URL('../assets/ArogyaManas_logo.png', import.meta.url).href;
 const digitalIndiaLogo = new URL('../assets/digital_india_logo.jpg', import.meta.url).href;
 const abdmLogo = new URL('../assets/logo-Ayushman_Bharat.png', import.meta.url).href;
 const geminiLogo = new URL('../assets/gemini-logo.png', import.meta.url).href;
@@ -29,9 +30,7 @@ function LandingPage({ onExplore }: LandingPageProps) {
       {/* Navigation */}
       <nav className={`relative z-10 px-8 py-6 flex justify-between items-center transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
-            <Activity className="w-6 h-6 text-white" />
-          </div>
+          <img src={arogyamanasLogo} alt="ArogyaManas" className="w-10 h-10 object-contain rounded-xl shadow-lg shadow-indigo-200" />
           <span className="text-xl font-black text-slate-800 tracking-tight">ArogyaManas</span>
         </div>
         <div className="flex items-center space-x-4">
