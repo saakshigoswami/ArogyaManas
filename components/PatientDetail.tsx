@@ -819,6 +819,22 @@ const PatientDetail: React.FC<PatientDetailProps> = ({ patient, onBack, onUpdate
   const handlePrescriptionComplete = (newRx: ScannedPrescription) => {
     setScannedPrescriptions(prev => [newRx, ...prev]);
     setShowScanner(false);
+
+    const newJourneyEntry: ClinicalJourneyRecord = {
+      date: newRx.date,
+      facility: newRx.hospitalName ?? 'External / Scanned record',
+      clinician: newRx.doctorName ?? '',
+      reasonForVisit: newRx.diagnosis ?? 'From scanned prescription',
+      prescribedMedications: newRx.items.map(i => `${i.name} ${i.dosage}${i.frequency ? ` ${i.frequency}` : ''}`),
+    };
+    const updatedPrescriptions = [newRx, ...(patient.prescriptions || [])];
+    const updatedJourney = [newJourneyEntry, ...(patient.clinicalJourney || [])];
+    const updated: Patient = {
+      ...patient,
+      prescriptions: updatedPrescriptions,
+      clinicalJourney: updatedJourney,
+    };
+    if (onUpdatePatient) onUpdatePatient(updated);
   };
 
   const handleTestComplete = async (newAssessment: Assessment) => {

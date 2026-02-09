@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Activity, BrainCircuit, ShieldCheck, ArrowRight, Heart, Users, Sparkles, Fingerprint, ShieldEllipsis, Globe } from 'lucide-react';
+import { Activity, BrainCircuit, ShieldCheck, ArrowRight, Heart, Users, Fingerprint, ShieldEllipsis } from 'lucide-react';
+
+const abhaIcon = new URL('../assets/abha_icon.png', import.meta.url).href;
+const digitalIndiaLogo = new URL('../assets/digital_india_logo.jpg', import.meta.url).href;
+const abdmLogo = new URL('../assets/logo-Ayushman_Bharat.png', import.meta.url).href;
+const geminiLogo = new URL('../assets/gemini-logo.png', import.meta.url).href;
 
 interface LandingPageProps {
   onExplore: () => void;
@@ -31,11 +36,11 @@ function LandingPage({ onExplore }: LandingPageProps) {
         </div>
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-100 shadow-sm">
-            <Globe className="w-3 h-3 text-orange-600" />
+            <img src={digitalIndiaLogo} alt="Digital India" className="w-9 h-9 object-contain" />
             <span className="text-[9px] font-black uppercase tracking-widest text-orange-700">Made for Digital India</span>
           </div>
           <div className="flex items-center space-x-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full border border-slate-200 shadow-sm">
-            <Sparkles className="w-4 h-4 text-indigo-500 animate-pulse" />
+            <img src={geminiLogo} alt="Gemini" className="w-6 h-6 object-contain" />
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Powered by Gemini</span>
           </div>
         </div>
@@ -49,7 +54,8 @@ function LandingPage({ onExplore }: LandingPageProps) {
               <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-ping mr-2"></div>
               <span>Intelligence Platform v3.1</span>
             </div>
-            <div className="px-3 py-1 bg-blue-600 rounded-full text-white font-black text-[10px] uppercase tracking-wider shadow-lg shadow-blue-200">
+            <div className="px-3 py-1 bg-white rounded-full text-slate-800 font-black text-[10px] uppercase tracking-wider shadow-lg shadow-slate-200 border border-slate-200 flex items-center gap-2">
+              <img src={abhaIcon} alt="ABHA" className="w-6 h-6 object-contain" />
               ABHA Integrated
             </div>
           </div>
@@ -76,7 +82,7 @@ function LandingPage({ onExplore }: LandingPageProps) {
             </button>
             <div className="text-slate-400 font-bold text-xs flex flex-col items-start uppercase tracking-widest text-left">
               <div className="flex items-center mb-1 text-emerald-600">
-                <ShieldCheck className="w-4 h-4 mr-2" />
+                <img src={abdmLogo} alt="ABDM" className="w-12 h-12 object-contain mr-2" />
                 ABDM Compliant Facility
               </div>
               <div className="text-[10px] font-medium text-slate-400">Secure Healthcare Data Exchange</div>
@@ -97,8 +103,8 @@ function LandingPage({ onExplore }: LandingPageProps) {
           </div>
 
           <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 clinical-shadow hover:shadow-2xl transition-all hover:-translate-y-2 flex flex-col items-center group">
-            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
-              <Fingerprint className="w-8 h-8 text-blue-600 group-hover:text-white" />
+            <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mb-6 border border-slate-100 shadow-sm p-2">
+              <img src={abhaIcon} alt="ABHA" className="w-14 h-14 object-contain" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-3">ABHA Account Sync</h3>
             <p className="text-slate-500 text-sm leading-relaxed">
@@ -107,8 +113,8 @@ function LandingPage({ onExplore }: LandingPageProps) {
           </div>
 
           <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 clinical-shadow hover:shadow-2xl transition-all hover:-translate-y-2 flex flex-col items-center group">
-            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors">
-              <ShieldEllipsis className="w-8 h-8 text-emerald-600 group-hover:text-white" />
+            <div className="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors p-2">
+              <img src={digitalIndiaLogo} alt="Digital India" className="w-14 h-14 object-contain" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-3">Digital India Compliant</h3>
             <p className="text-slate-500 text-sm leading-relaxed">
@@ -120,18 +126,28 @@ function LandingPage({ onExplore }: LandingPageProps) {
         {/* ABDM Branding Section */}
         <div className={`mt-24 p-12 bg-white rounded-[3rem] border border-slate-100 clinical-shadow w-full flex flex-col md:flex-row items-center justify-between text-left transition-all duration-1000 delay-700 transform ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="md:w-1/2 mb-8 md:mb-0">
-             <div className="flex items-center space-x-4 mb-4">
+             <div className="flex items-center space-x-4 mb-4 flex-wrap gap-2">
                 <div className="px-3 py-1 bg-orange-100 text-orange-700 rounded-lg text-[9px] font-black uppercase tracking-widest">Azadi Ka Amrit Mahotsav</div>
-                <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-[9px] font-black uppercase tracking-widest">Digital India</div>
+                <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                  <img src={digitalIndiaLogo} alt="Digital India" className="w-6 h-6 object-contain" />
+                  Digital India
+                </div>
+                <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                  <img src={abdmLogo} alt="ABDM" className="w-6 h-6 object-contain" />
+                  ABDM
+                </div>
              </div>
-             <h2 className="text-3xl font-black text-slate-800 mb-4">Ayushman Bharat Digital Mission (ABDM) Integration</h2>
+             <h2 className="text-3xl font-black text-slate-800 mb-4 flex items-center gap-3">
+               <img src={abdmLogo} alt="ABDM" className="w-20 h-20 object-contain" />
+               Ayushman Bharat Digital Mission (ABDM) Integration
+             </h2>
              <p className="text-slate-500 font-medium leading-relaxed">
                 ArogyaManas is built to serve the national healthcare vision. We facilitate secure health data exchange between patients and doctors via the Unified Health Interface (UHI), ensuring every Indian has access to their longitudinal mental health history.
              </p>
           </div>
           <div className="md:w-1/3 flex flex-col items-center justify-center p-8 bg-slate-50 rounded-[2rem] border border-slate-100 text-center">
-             <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-blue-100">
-                <ShieldCheck className="w-8 h-8 text-white" />
+             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-4 shadow-xl border border-slate-200 p-3">
+                <img src={abhaIcon} alt="ABHA" className="w-full h-full object-contain" />
              </div>
              <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">ABHA Integrated Facility</p>
              <p className="text-lg font-bold text-slate-800">14-Digit Health ID Verification Enabled</p>
