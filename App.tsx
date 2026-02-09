@@ -9,9 +9,15 @@ import LandingPage from './components/LandingPage';
 import { Patient } from './types';
 import { MOCK_PATIENTS } from './constants';
 import { fetchPatients, seedDemoDataIfEmpty, insertPatient, updatePatientInSupabase } from './services/patientService';
-import { LayoutDashboard, Users, Clock, AlertCircle, Plus } from 'lucide-react';
+import PrescriptionScanner from './components/PrescriptionScanner';
+import type { ScannedPrescription } from './types';
+import { LayoutDashboard, Users, Clock, AlertCircle, Plus, ScanLine } from 'lucide-react';
 
-const DashboardOverview: React.FC<{ onSeeAll: () => void; onAddPatient: () => void }> = ({ onSeeAll, onAddPatient }) => (
+const DashboardOverview: React.FC<{
+  onSeeAll: () => void;
+  onAddPatient: () => void;
+  onScanForNewPatient: () => void;
+}> = ({ onSeeAll, onAddPatient, onScanForNewPatient }) => (
   <div className="p-8">
     <div className="flex justify-between items-center mb-8">
       <div>
@@ -19,6 +25,13 @@ const DashboardOverview: React.FC<{ onSeeAll: () => void; onAddPatient: () => vo
         <p className="text-slate-500 mt-1">Here is what's happening in your clinic today.</p>
       </div>
       <div className="flex items-center space-x-4">
+        <button
+          onClick={onScanForNewPatient}
+          className="flex items-center px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-100 transition font-bold border border-indigo-100 shadow-sm"
+        >
+          <ScanLine className="w-4 h-4 mr-2" />
+          Scan External Record
+        </button>
         <button 
           onClick={onAddPatient}
           className="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition font-bold shadow-lg shadow-indigo-200"
@@ -98,6 +111,8 @@ const App: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>(MOCK_PATIENTS);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showDashboardScanner, setShowDashboardScanner] = useState(false);
+  const [pendingScanForNewPatient, setPendingScanForNewPatient] = useState<ScannedPrescription | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -154,7 +169,8 @@ const App: React.FC = () => {
         return (
           <DashboardOverview 
             onSeeAll={() => setActiveView('patients')} 
-            onAddPatient={() => setActiveView('new-patient')}
+            onAddPatient={() => { setPendingScanForNewPatient(null); setActiveView('new-patient'); }}
+            onScanForNewPatient={() => setShowDashboardScanner(true)}
           />
         );
       case 'patients':
@@ -168,8 +184,16 @@ const App: React.FC = () => {
       case 'new-patient':
         return (
           <NewPatientForm 
-            onSave={handleAddPatient}
-            onCancel={() => setActiveView('dashboard')}
+            onSave={(patient) => { setPendingScanForNewPatient(null); handleAddPatient(patient); }}
+            onCancel={() => { setPendingScanForNewPatient(null); setActiveView('dashboard'); }}
+            initialFromScan={pendingScanForNewPatient ? {
+              diagnosis: pendingScanForNewPatient.diagnosis,
+              chiefComplaint: pendingScanForNewPatient.diagnosis || 'From scanned record',
+              receptionNotes: [pendingScanForNewPatient.hospitalName, pendingScanForNewPatient.doctorName].filter(Boolean).length
+                ? `Scanned: ${pendingScanForNewPatient.hospitalName || 'External'} – ${pendingScanForNewPatient.doctorName || 'Doctor'}`
+                : 'Registered from scanned prescription.',
+              scannedPrescription: pendingScanForNewPatient,
+            } : undefined}
           />
         );
       case 'messages':
@@ -202,6 +226,16 @@ const App: React.FC = () => {
       onLogoClick={() => setActiveView('landing')}
     >
       {renderContent()}
+      {showDashboardScanner && (
+        <PrescriptionScanner
+          onCancel={() => setShowDashboardScanner(false)}
+          onComplete={(rx) => {
+            setPendingScanForNewPatient(rx);
+            setShowDashboardScanner(false);
+            setActiveView('new-patient');
+          }}
+        />
+      )}
     </Layout>
   );
 };

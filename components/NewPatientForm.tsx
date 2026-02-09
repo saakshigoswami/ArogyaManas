@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Patient } from '../types';
+import { Patient, ScannedPrescription } from '../types';
 import { DOCTORS } from '../constants';
 import { abhaService } from '../services/abhaService';
 import { 
@@ -18,43 +18,68 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
+export interface InitialFromScan {
+  patientName?: string;
+  diagnosis?: string;
+  chiefComplaint?: string;
+  receptionNotes?: string;
+  scannedPrescription?: ScannedPrescription;
+}
+
 interface NewPatientFormProps {
   onSave: (patient: Patient) => void;
   onCancel: () => void;
+  initialFromScan?: InitialFromScan;
 }
 
-const NewPatientForm: React.FC<NewPatientFormProps> = ({ onSave, onCancel }) => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+function getInitialFormData(initialFromScan?: InitialFromScan) {
+  const nameParts = initialFromScan?.patientName?.trim()?.split(/\s+/) ?? [];
+  const firstName = nameParts[0] ?? '';
+  const lastName = nameParts.slice(1).join(' ') ?? '';
+  return {
+    firstName,
+    lastName,
     dob: '',
-    gender: 'Female',
+    gender: 'Female' as const,
     phone: '',
     email: '',
     abhaNumber: '',
     abhaAddress: '',
-    visitType: 'New Consultation' as any,
-    chiefComplaint: '',
+    visitType: 'New Consultation' as 'New Consultation' | 'Follow-up' | 'Emergency',
+    chiefComplaint: initialFromScan?.chiefComplaint ?? '',
     assignedDoctor: DOCTORS[0],
-    receptionNotes: '',
-  });
+    receptionNotes: initialFromScan?.receptionNotes ?? '',
+  };
+}
+
+const NewPatientForm: React.FC<NewPatientFormProps> = ({ onSave, onCancel, initialFromScan }) => {
+  const [formData, setFormData] = useState(() => getInitialFormData(initialFromScan));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const abha = abhaService.toAbhaInfo(formData.abhaNumber, formData.abhaAddress);
     const newPatient: Patient = {
       id: `p${Math.floor(Math.random() * 1000)}`,
-      name: `${formData.firstName} ${formData.lastName}`,
+      name: `${formData.firstName} ${formData.lastName}`.trim() || 'Unknown',
       dob: formData.dob,
       gender: formData.gender,
       contact: formData.phone,
       joinedAt: new Date().toISOString().split('T')[0],
       abha,
+      diagnosis: initialFromScan?.diagnosis,
       clinicalStatus: 'In Progress',
       visitType: formData.visitType,
       chiefComplaint: formData.chiefComplaint,
       assignedDoctor: formData.assignedDoctor,
       receptionNotes: formData.receptionNotes,
+      prescriptions: initialFromScan?.scannedPrescription ? [initialFromScan.scannedPrescription] : undefined,
+      clinicalJourney: initialFromScan?.scannedPrescription ? [{
+        date: initialFromScan.scannedPrescription.date,
+        facility: initialFromScan.scannedPrescription.hospitalName ?? 'External',
+        clinician: initialFromScan.scannedPrescription.doctorName ?? '',
+        reasonForVisit: initialFromScan.scannedPrescription.diagnosis ?? 'From scanned record',
+        prescribedMedications: initialFromScan.scannedPrescription.items.map(i => `${i.name} ${i.dosage}`),
+      }] : undefined,
     };
     onSave(newPatient);
   };
@@ -75,7 +100,11 @@ const NewPatientForm: React.FC<NewPatientFormProps> = ({ onSave, onCancel }) => 
           </button>
           <div>
             <h1 className="text-3xl font-bold text-slate-800">Patient Intake – General Details</h1>
-            <p className="text-slate-500">New arrivals processed by reception for clinical assignment.</p>
+            <p className="text-slate-500">
+              {initialFromScan?.scannedPrescription
+                ? 'Details pre-filled from scanned record. Fill any empty fields (e.g. name, DOB, contact) and register.'
+                : 'New arrivals processed by reception for clinical assignment.'}
+            </p>
           </div>
         </div>
         <div className="flex space-x-3">
