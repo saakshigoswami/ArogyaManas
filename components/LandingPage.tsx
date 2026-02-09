@@ -31,7 +31,7 @@ function LandingPage({ onExplore }: LandingPageProps) {
       <nav className={`relative z-10 px-8 py-6 flex justify-between items-center transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
         <div className="flex items-center space-x-3">
           <img src={arogyamanasLogo} alt="ArogyaManas" className="w-10 h-10 object-contain rounded-xl shadow-lg shadow-indigo-200" />
-          <span className="text-xl font-black text-slate-800 tracking-tight">ArogyaManas</span>
+          <span className="text-2xl font-black text-slate-800 tracking-tight">ArogyaManas</span>
         </div>
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-100 shadow-sm">
@@ -59,13 +59,13 @@ function LandingPage({ onExplore }: LandingPageProps) {
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
             Longitudinal Intelligence for <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Psychiatric Excellence</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Psychiatric Healthcare.</span>
           </h1>
           
-          <p className="max-w-2xl mx-auto text-slate-500 text-lg md:text-xl font-medium leading-relaxed mb-12">
-            Built for the <strong>Ayushman Bharat Digital Mission</strong>. ArogyaManas bridges the gap between traditional mental health records and modern clinical intelligence.
+          <p className="max-w-2xl mx-auto text-slate-500 text-base md:text-lg font-medium leading-relaxed mb-12">
+            Aligned with Ayushman Bharat. ArogyaManas digitizes records, reduces clinical time, and helps psychiatrists treat more patients—accurately and efficiently.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
