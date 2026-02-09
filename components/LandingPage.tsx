@@ -1,0 +1,162 @@
+import React, { useEffect, useState } from 'react';
+import { Activity, BrainCircuit, ShieldCheck, ArrowRight, Heart, Users, Sparkles, Fingerprint, ShieldEllipsis, Globe } from 'lucide-react';
+
+interface LandingPageProps {
+  onExplore: () => void;
+}
+
+function LandingPage({ onExplore }: LandingPageProps) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-50 overflow-x-hidden font-sans selection:bg-indigo-100 selection:text-indigo-900">
+      {/* Background Decor */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-100/50 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute top-[20%] -right-[10%] w-[30%] h-[30%] bg-emerald-50/50 rounded-full blur-[100px]"></div>
+        <div className="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] bg-blue-50/30 rounded-full blur-[150px]"></div>
+      </div>
+
+      {/* Navigation */}
+      <nav className={`relative z-10 px-8 py-6 flex justify-between items-center transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+            <Activity className="w-6 h-6 text-white" />
+          </div>
+          <span className="text-xl font-black text-slate-800 tracking-tight">ArogyaManas</span>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-100 shadow-sm">
+            <Globe className="w-3 h-3 text-orange-600" />
+            <span className="text-[9px] font-black uppercase tracking-widest text-orange-700">Made for Digital India</span>
+          </div>
+          <div className="flex items-center space-x-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full border border-slate-200 shadow-sm">
+            <Sparkles className="w-4 h-4 text-indigo-500 animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Powered by Gemini</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="relative z-10 container mx-auto px-8 pt-12 pb-24 flex flex-col items-center text-center">
+        <div className={`transition-all duration-1000 delay-300 transform ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
+          <div className="inline-flex items-center space-x-3 mb-6">
+            <div className="px-3 py-1 bg-indigo-50 rounded-full border border-indigo-100 text-indigo-600 font-bold text-[10px] uppercase tracking-wider flex items-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-ping mr-2"></div>
+              <span>Intelligence Platform v3.1</span>
+            </div>
+            <div className="px-3 py-1 bg-blue-600 rounded-full text-white font-black text-[10px] uppercase tracking-wider shadow-lg shadow-blue-200">
+              ABHA Integrated
+            </div>
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
+            Longitudinal Intelligence for <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Psychiatric Excellence</span>
+          </h1>
+          
+          <p className="max-w-2xl mx-auto text-slate-500 text-lg md:text-xl font-medium leading-relaxed mb-12">
+            Built for the <strong>Ayushman Bharat Digital Mission</strong>. ArogyaManas bridges the gap between traditional mental health records and modern clinical intelligence.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button 
+              onClick={onExplore}
+              className="group relative px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-bold text-lg hover:bg-slate-800 transition-all shadow-2xl shadow-slate-200 overflow-hidden"
+            >
+              <div className="relative z-10 flex items-center">
+                Explore ArogyaManas
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+            <div className="text-slate-400 font-bold text-xs flex flex-col items-start uppercase tracking-widest text-left">
+              <div className="flex items-center mb-1 text-emerald-600">
+                <ShieldCheck className="w-4 h-4 mr-2" />
+                ABDM Compliant Facility
+              </div>
+              <div className="text-[10px] font-medium text-slate-400">Secure Healthcare Data Exchange</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 w-full transition-all duration-1000 delay-500 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 clinical-shadow hover:shadow-2xl transition-all hover:-translate-y-2 flex flex-col items-center group">
+            <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 transition-colors">
+              <BrainCircuit className="w-8 h-8 text-indigo-600 group-hover:text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-3">AI Case Synthesis</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Powered by Google Gemini to analyze longitudinal sessions, psychometric trends, and pharmacological history with unmatched precision.
+            </p>
+          </div>
+
+          <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 clinical-shadow hover:shadow-2xl transition-all hover:-translate-y-2 flex flex-col items-center group">
+            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
+              <Fingerprint className="w-8 h-8 text-blue-600 group-hover:text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-3">ABHA Account Sync</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Seamlessly link and pull records from patient's 14-digit ABHA (Ayushman Bharat Health Account) for a truly holistic 360&deg; health view.
+            </p>
+          </div>
+
+          <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 clinical-shadow hover:shadow-2xl transition-all hover:-translate-y-2 flex flex-col items-center group">
+            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors">
+              <ShieldEllipsis className="w-8 h-8 text-emerald-600 group-hover:text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-3">Digital India Compliant</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Strict adherence to Indian data sovereignty laws and ABDM milestones for secure, interoperable health records across India.
+            </p>
+          </div>
+        </div>
+
+        {/* ABDM Branding Section */}
+        <div className={`mt-24 p-12 bg-white rounded-[3rem] border border-slate-100 clinical-shadow w-full flex flex-col md:flex-row items-center justify-between text-left transition-all duration-1000 delay-700 transform ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="md:w-1/2 mb-8 md:mb-0">
+             <div className="flex items-center space-x-4 mb-4">
+                <div className="px-3 py-1 bg-orange-100 text-orange-700 rounded-lg text-[9px] font-black uppercase tracking-widest">Azadi Ka Amrit Mahotsav</div>
+                <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-[9px] font-black uppercase tracking-widest">Digital India</div>
+             </div>
+             <h2 className="text-3xl font-black text-slate-800 mb-4">Ayushman Bharat Digital Mission (ABDM) Integration</h2>
+             <p className="text-slate-500 font-medium leading-relaxed">
+                ArogyaManas is built to serve the national healthcare vision. We facilitate secure health data exchange between patients and doctors via the Unified Health Interface (UHI), ensuring every Indian has access to their longitudinal mental health history.
+             </p>
+          </div>
+          <div className="md:w-1/3 flex flex-col items-center justify-center p-8 bg-slate-50 rounded-[2rem] border border-slate-100 text-center">
+             <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-blue-100">
+                <ShieldCheck className="w-8 h-8 text-white" />
+             </div>
+             <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">ABHA Integrated Facility</p>
+             <p className="text-lg font-bold text-slate-800">14-Digit Health ID Verification Enabled</p>
+          </div>
+        </div>
+
+        {/* Footer info */}
+        <div className={`mt-24 pt-12 border-t border-slate-200 w-full flex flex-col md:flex-row justify-between items-center transition-all duration-1000 delay-1000 transform ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex items-center space-x-8 mb-8 md:mb-0">
+             <div className="flex items-center space-x-2">
+                <Users className="w-4 h-4 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Empowering Indian Clinicians</span>
+             </div>
+             <div className="flex items-center space-x-2">
+                <Heart className="w-4 h-4 text-rose-400" />
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Accessible Mental Health</span>
+             </div>
+          </div>
+          <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">
+            ArogyaManas &copy; 2024 &bull; A Digital India Initiative
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default LandingPage;
