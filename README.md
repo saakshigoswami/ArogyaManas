@@ -151,15 +151,6 @@ ArogyaManas supports **ABHA (Ayushman Bharat Health Account)** as an optional pa
 
 ---
 
-## Supabase (optional, recommended for demos)
-
-- Create a project at [supabase.com](https://supabase.com), run SQL from `supabase/migrations/` in order (relational schema + seed).
-- App loads patients from Supabase on startup; if the table is empty, it can seed demo patients.
-- [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md) — project setup, migrations, env vars.  
-- [docs/VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) — deploying to Vercel with Supabase env vars.
-
----
-
 ## Project structure (high level)
 
 ```
