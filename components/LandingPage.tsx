@@ -154,7 +154,7 @@ function LandingPage({ onExplore }: LandingPageProps) {
         </div>
 
         {/* Footer info */}
-        <div className={`mt-24 pt-12 border-t border-slate-200 w-full flex flex-col md:flex-row justify-between items-center transition-all duration-1000 delay-1000 transform ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`mt-24 pt-12 border-t border-slate-200 w-full flex flex-col md:flex-row items-center transition-all duration-1000 delay-1000 transform ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex items-center space-x-8 mb-8 md:mb-0">
              <div className="flex items-center space-x-2">
                 <Users className="w-4 h-4 text-slate-400" />
@@ -164,9 +164,6 @@ function LandingPage({ onExplore }: LandingPageProps) {
                 <Heart className="w-4 h-4 text-rose-400" />
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Accessible Mental Health</span>
              </div>
-          </div>
-          <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">
-            ArogyaManas &copy; 2024 &bull; A Digital India Initiative
           </div>
         </div>
       </main>
